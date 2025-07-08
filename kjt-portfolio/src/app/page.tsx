@@ -1,6 +1,3 @@
-import { getPageData } from '@/lib/data';
-import SectionRenderer from '@/components/SectionRenderer';
-import Header from '@/components/Header';
 import { Metadata } from 'next';
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";

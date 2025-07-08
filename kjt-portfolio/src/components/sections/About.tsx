@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
@@ -94,7 +93,7 @@ function parsePersianNumber(str: string) {
   // Remove non-digit chars, convert Persian/Arabic to English
   const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
   let num = '';
-  for (let ch of str) {
+  for (const ch of str) {
     if (persianDigits.includes(ch)) num += persianDigits.indexOf(ch);
     else if (!isNaN(Number(ch))) num += ch;
   }
@@ -102,6 +101,13 @@ function parsePersianNumber(str: string) {
 }
 
 export default function About() {
+  // Precompute animated counts for stats
+  const animatedCounts = stats.slice(0, 4).map((stat, i) => {
+    const num = parsePersianNumber(stat.value);
+    const count = useCountUp(num, 1200 + i * 200);
+    const animatedValue = stat.value.replace(/([۰-۹]+)/g, () => count.toLocaleString('fa-IR'));
+    return { ...stat, animatedValue };
+  });
   return (
     <section className="py-24 px-4 md:px-0 bg-white" style={{ paddingTop: '15rem' }}>
       <div className="container-rtl max-w-6xl mx-auto flex flex-col gap-16">
@@ -158,30 +164,22 @@ export default function About() {
           <LicenseSlider />
           {/* Achievements */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:flex flex-wrap justify-center items-center gap-6 md:gap-10 mt-4">
-            {stats.slice(0, 4).map((stat, i) => {
-              const num = parsePersianNumber(stat.value);
-              const count = useCountUp(num, 1200 + i * 200);
-              // Replace the number in stat.value with the animated count
-              const animatedValue = stat.value.replace(/([۰-۹]+)/g, () =>
-                count.toLocaleString('fa-IR')
-              );
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col items-center gap-2 min-w-[120px]"
-                >
-                  <div className="bg-orange-50 rounded-full p-4 mb-2 shadow-sm">
-                    {stat.icon}
-                  </div>
-                  <span className="text-xl font-bold text-gray-900">{animatedValue}</span>
-                  <span className="text-sm text-gray-500">{stat.label}</span>
-                </motion.div>
-              );
-            })}
+            {animatedCounts.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-2 min-w-[120px]"
+              >
+                <div className="bg-orange-50 rounded-full p-4 mb-2 shadow-sm">
+                  {stat.icon}
+                </div>
+                <span className="text-xl font-bold text-gray-900">{stat.animatedValue}</span>
+                <span className="text-sm text-gray-500">{stat.label}</span>
+              </motion.div>
+            ))}
         </div>
         </motion.div>
       </div>

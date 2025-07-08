@@ -78,7 +78,7 @@ export default function Hero({ section }: HeroProps) {
         />
 
         {/* Flying Sparks */}
-        {sparks.map((spark, index) => (
+        {sparks.map((spark) => (
           <motion.div
             key={spark}
             initial={{

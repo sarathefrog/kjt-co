@@ -31,7 +31,7 @@ export default function SectionRenderer({ sections }: SectionRendererProps) {
       case 'intro':
         return <Intro key={index} section={section} />;
       default:
-        console.warn(`Unknown section type: ${(section as any).type}`);
+        console.warn(`Unknown section type: ${(section as unknown as { type?: string }).type}`);
         return null;
     }
   };

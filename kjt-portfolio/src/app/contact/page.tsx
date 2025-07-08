@@ -1,4 +1,3 @@
-import Hero from '@/components/sections/Hero';
 import Footer from '@/components/Footer';
 
 export default function ContactPage() {
