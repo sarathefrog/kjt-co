@@ -1,0 +1,426 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RTL Support */
+html {
+  direction: rtl;
+  text-align: right;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Persian Font Import */
+@font-face {
+  font-family: 'IRANSansX';
+  src: url('/fonts/IRANSansXRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSansX';
+  src: url('/fonts/IRANSansXMedium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSansX';
+  src: url('/fonts/IRANSansXBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSansX';
+  src: url('/fonts/IRANSansXLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'IRANSansX', 'Tahoma', 'Arial', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Grid System */
+@layer components {
+  /* Container with generous padding and margins */
+  .container-rtl {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16;
+  }
+  
+  /* Section spacing */
+  .section-padding {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+  
+  .section-margin {
+    @apply my-16 md:my-24 lg:my-32;
+  }
+  
+  /* Alternating backgrounds */
+  .section-light {
+    @apply bg-white;
+  }
+  
+  .section-dark {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .section-gradient {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100;
+  }
+  
+  /* Button Components */
+  .btn-primary {
+    @apply bg-orange-500 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 
+           hover:bg-orange-400 hover:shadow-lg hover:shadow-orange-500/25 transform hover:-translate-y-1
+           focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-orange-500 text-orange-500 px-8 py-4 rounded-xl font-medium transition-all duration-300 
+           hover:bg-orange-500 hover:text-white hover:shadow-lg hover:shadow-orange-500/25 transform hover:-translate-y-1
+           focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-white text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 
+           hover:bg-white hover:text-gray-900 hover:shadow-lg transform hover:-translate-y-1
+           focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2;
+  }
+  
+  /* Link Components */
+  .link-orange {
+    @apply text-orange-500 hover:text-orange-400 transition-colors duration-300 relative;
+  }
+  
+  .link-orange::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300;
+  }
+  
+  .link-orange:hover::after {
+    @apply w-full;
+  }
+  
+  /* Card Components */
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-gray-100 hover:shadow-medium transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-large hover:-translate-y-2 transition-all duration-300;
+  }
+  
+  .card-dark {
+    @apply bg-gray-800 border-gray-700 text-white;
+  }
+  
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-gray-900/80 backdrop-blur-md border border-gray-700/20;
+  }
+  
+  /* Hero Section */
+  .hero-dark {
+    @apply bg-gray-900 text-white relative overflow-hidden;
+  }
+  
+  .hero-gradient {
+    @apply bg-gradient-to-br from-gray-900 via-gray-800 to-black;
+}
+
+  /* Orange Accent */
+  .neon-orange {
+    @apply text-orange-400 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)];
+}
+
+  .neon-glow {
+    @apply shadow-[0_0_20px_rgba(249,115,22,0.3)];
+}
+
+  /* Navigation */
+  .nav-link {
+    @apply text-gray-700 hover:text-orange-500 transition-colors duration-300 font-medium uppercase tracking-wide;
+}
+
+  .nav-link-dark {
+    @apply text-gray-300 hover:text-orange-400 transition-colors duration-300 font-medium uppercase tracking-wide;
+}
+
+  /* Image Effects */
+  .image-grayscale {
+    @apply grayscale hover:grayscale-0 transition-all duration-500;
+  }
+  
+  .image-overlay {
+    @apply relative overflow-hidden;
+}
+
+  .image-overlay::after {
+    @apply content-[''] absolute inset-0 bg-black/20 hover:bg-black/0 transition-all duration-300;
+  }
+  
+  /* Slider/Carousel */
+  .slider-item {
+    @apply transition-all duration-300;
+}
+
+  .slider-item.active {
+    @apply scale-105 brightness-110;
+  }
+  
+  /* Custom Cursor */
+  .cursor-glow {
+    @apply cursor-pointer;
+  }
+  
+  .cursor-glow:hover {
+    @apply shadow-[0_0_20px_rgba(249,115,22,0.5)];
+  }
+}
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes welding {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) hue-rotate(0deg);
+  }
+  25% { 
+    transform: scale(1.1) rotate(5deg);
+    filter: brightness(1.2) hue-rotate(10deg);
+  }
+  50% { 
+    transform: scale(0.9) rotate(-5deg);
+    filter: brightness(0.8) hue-rotate(-10deg);
+  }
+  75% { 
+    transform: scale(1.05) rotate(3deg);
+    filter: brightness(1.1) hue-rotate(5deg);
+  }
+}
+
+@keyframes fire {
+  0%, 100% { 
+    transform: scale(1) translateY(0);
+    opacity: 0.8;
+  }
+  25% { 
+    transform: scale(1.2) translateY(-5px);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(0.8) translateY(5px);
+    opacity: 0.6;
+  }
+  75% { 
+    transform: scale(1.1) translateY(-3px);
+    opacity: 0.9;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-welding {
+  animation: welding 2s ease-in-out infinite;
+}
+
+.animate-fire {
+  animation: fire 1.5s ease-in-out infinite;
+}
+
+/* Hover Effects */
+.hover-lift {
+  @apply transition-all duration-300;
+}
+
+.hover-lift:hover {
+  @apply transform -translate-y-2 shadow-lg;
+}
+
+.hover-scale {
+  @apply transition-all duration-300;
+}
+
+.hover-scale:hover {
+  @apply transform scale-105;
+}
+
+.hover-glow:hover {
+  @apply shadow-[0_0_20px_rgba(249,115,22,0.5)];
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}
+
+/* Selection Styling */
+::selection {
+  background: #f97316;
+  color: white;
+}
+
+/* Focus Styles */
+*:focus {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* Loading Animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .container-rtl {
+    @apply px-4;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-20;
+  }
+}
