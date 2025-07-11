@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import Header from '@/components/Header';
 
 export default function NotFound() {
   return (
     <main className="min-h-screen">
-      <Header />
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <h1 className="text-6xl md:text-8xl font-bold text-primary-600 mb-4">۴۰۴</h1>

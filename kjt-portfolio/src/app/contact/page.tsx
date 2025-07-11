@@ -1,10 +1,7 @@
-import Footer from '@/components/Footer';
-
 export default function ContactPage() {
   return (
     <>
       <HeroPageTitle title="تماس با ما" />
-      <Footer />
     </>
   );
 }
