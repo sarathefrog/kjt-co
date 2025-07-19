@@ -6,6 +6,14 @@ import { HeroSection } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
+interface SparkConfig {
+  initialX: number;
+  initialY: number;
+  targetX: number;
+  duration: number;
+  delay: number;
+}
+
 interface HeroProps {
   section: HeroSection;
 }
@@ -14,12 +22,10 @@ export default function Hero({ section }: HeroProps) {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
   const [windowDimensions, setWindowDimensions] = useState({ width: 1200, height: 800 });
+  const [sparkConfigs, setSparkConfigs] = useState<SparkConfig[] | null>(null);
   
   // Show company name for homepage, page title for other pages
   const displayTitle = isHomepage ? 'کاوش جوش تهران' : section.title;
-
-  // Generate multiple spark elements
-  const sparks = Array.from({ length: 20 }, (_, i) => i);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -33,6 +39,24 @@ export default function Hero({ section }: HeroProps) {
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
+
+  // Generate spark configs only on client
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const count = 20;
+    const configs: SparkConfig[] = Array.from({ length: count }, () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      return {
+        initialX: Math.random() * width,
+        initialY: height + 50,
+        targetX: Math.random() * width,
+        duration: Math.random() * 3 + 2,
+        delay: Math.random() * 2,
+      };
+    });
+    setSparkConfigs(configs);
+  }, [windowDimensions.width, windowDimensions.height]);
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-dark hero-gradient">
@@ -78,23 +102,23 @@ export default function Hero({ section }: HeroProps) {
         />
 
         {/* Flying Sparks */}
-        {sparks.map((spark) => (
+        {sparkConfigs && sparkConfigs.map((cfg, i) => (
           <motion.div
-            key={spark}
+            key={i}
             initial={{
-              x: Math.random() * windowDimensions.width,
-              y: windowDimensions.height + 50,
+              x: cfg.initialX,
+              y: cfg.initialY,
               opacity: 0,
             }}
             animate={{
-              x: Math.random() * windowDimensions.width,
+              x: cfg.targetX,
               y: -100,
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: cfg.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: cfg.delay,
               ease: "easeOut"
             }}
             className="absolute w-1 h-1 bg-orange-400 rounded-full"

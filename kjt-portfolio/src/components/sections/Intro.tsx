@@ -26,7 +26,7 @@ export default function Intro({ section }: IntroProps) {
               صفحه اصلی
             </Link>
             <ChevronLeft className="w-4 h-4 text-secondary-400" />
-            <span className="text-primary-600 font-medium">{section.breadcrumb}</span>
+            <span className="text-primary-600 font-medium">{section.title}</span>
           </nav>
         </motion.div>
 
@@ -41,27 +41,6 @@ export default function Intro({ section }: IntroProps) {
             {section.title}
           </motion.h1>
           
-          {section.subtitle && (
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl text-secondary-600 mb-8 leading-relaxed"
-            >
-              {section.subtitle}
-            </motion.p>
-          )}
-          
-          {section.description && (
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-lg text-secondary-500 max-w-3xl mx-auto leading-relaxed"
-            >
-              {section.description}
-            </motion.p>
-          )}
         </div>
 
         {/* Decorative Elements */}

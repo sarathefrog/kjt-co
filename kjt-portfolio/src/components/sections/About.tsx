@@ -3,6 +3,11 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
+import type { AboutSection } from '@/types';
+
+interface AboutProps {
+  section?: AboutSection;
+}
 
 const stats = [
   {
@@ -100,24 +105,46 @@ function parsePersianNumber(str: string) {
   return Number(num);
 }
 
-export default function About() {
-  // Precompute animated counts for stats
+export default function About({ section }: AboutProps) {
+  // Use section?.title, section?.content, section?.image if provided, otherwise fallback to defaults
+  const title = section?.title || "شرکت کاوش جوش تهران";
+  const content = section?.content || "شرکت کاوش جوش تهران بالغ بر 30 سال در اجرای پروژه‌های گوناگون فلزی اعم از ساخت و نصب در زمینه‌های مختلف: نیروگاهی، نفت و گاز، کارخانجات سیمان، تاسیسات گازرسانی، ساخت کانتینر‌های اختصاصی، مخازن ذخیره و تحت فشار، سازه‌های ساختمانی تاسیسات و شناور‌های دریایی و … فعالیت داشته است.";
+  const imageSrc = section?.image || "/team.jpg";
+  const imageAlt = "تیم کاوش جوش تهران";
+  const imageWidth = 360;
+  const imageHeight = 360;
+  const imageClassName = "rounded-3xl object-cover border-2 border-orange-400 shadow-md";
+  const imagePriority = false;
+
+  // Precompute numbers for stats
+  const numbers = stats.slice(0, 4).map((stat) => parsePersianNumber(stat.value));
+  // Use one useCountUp per stat (explicitly, not in a loop)
+  const count0 = useCountUp(numbers[0], 1200);
+  const count1 = useCountUp(numbers[1], 1400);
+  const count2 = useCountUp(numbers[2], 1600);
+  const count3 = useCountUp(numbers[3], 1800);
+  const counts = [count0, count1, count2, count3];
+  // Build animatedCounts array
   const animatedCounts = stats.slice(0, 4).map((stat, i) => {
-    const num = parsePersianNumber(stat.value);
-    const count = useCountUp(num, 1200 + i * 200);
-    const animatedValue = stat.value.replace(/([۰-۹]+)/g, () => count.toLocaleString('fa-IR'));
+    const animatedValue = stat.value.replace(/([۰-۹]+)/g, () => counts[i].toLocaleString('fa-IR'));
     return { ...stat, animatedValue };
   });
   return (
-    <section className="py-24 px-4 md:px-0 bg-white" style={{ paddingTop: '15rem' }}>
-      <div className="container-rtl max-w-6xl mx-auto flex flex-col gap-16">
+    <section className="py-24 px-4 md:px-0 bg-white relative" style={{ paddingTop: '15rem' }}>
+      {/* Large vertical KJT background text */}
+      <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-0 select-none pointer-events-none">
+        <span className="text-[10rem] lg:text-[16rem] font-extrabold text-gray-200 opacity-60 tracking-tight leading-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', letterSpacing: '-0.05em' }}>
+          KJT
+        </span>
+      </div>
+      <div className="container-rtl max-w-6xl mx-auto flex flex-col gap-16 relative z-10">
         {/* First Row: Team + Text */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
+          className="flex flex-col md:flex-row items-center gap-12 md:gap-24 mb-16"
         >
           {/* Left: Team Picture */}
           <motion.div
@@ -128,12 +155,12 @@ export default function About() {
             className="flex-1 flex justify-center"
           >
             <Image
-              src="/team.jpg"
-              alt="تیم کاوش جوش تهران"
-              width={360}
-              height={360}
-              className="rounded-3xl object-cover border-2 border-orange-400 shadow-md"
-              priority
+              src={imageSrc}
+              alt={imageAlt}
+              width={imageWidth}
+              height={imageHeight}
+              className={imageClassName}
+              priority={imagePriority}
             />
           </motion.div>
           {/* Right: Title + Text */}
@@ -145,10 +172,10 @@ export default function About() {
             className="flex-1 flex flex-col justify-center items-start gap-6"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            شرکت <span className="text-orange-500">کاوش جوش تهران</span>
+             {title}
           </h2>
             <p className="text-base md:text-lg text-gray-700 leading-relaxed text-right">
-              شرکت کاوش جوش تهران بالغ بر 30 سال در اجرای پروژه‌های گوناگون فلزی اعم از ساخت و نصب در زمینه‌های مختلف: نیروگاهی، نفت و گاز، کارخانجات سیمان، تاسیسات گازرسانی، ساخت کانتینر‌های اختصاصی، مخازن ذخیره و تحت فشار، سازه‌های ساختمانی تاسیسات و شناور‌های دریایی و … فعالیت داشته است.
+               {content}
           </p>
           </motion.div>
         </motion.div>
@@ -195,7 +222,7 @@ function LicenseSlider() {
   const total = licenseImages.length;
 
   const getIndexes = () => {
-    let arr = [];
+    const arr = [];
     for (let i = 0; i < visibleCount; i++) {
       arr.push((current + i) % total);
     }

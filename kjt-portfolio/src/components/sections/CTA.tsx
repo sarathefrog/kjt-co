@@ -3,7 +3,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default function CTA() {
+type CTAProps = object;
+
+export default function CTA({}: CTAProps) {
   return (
     <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
       {/* Background Elements */}

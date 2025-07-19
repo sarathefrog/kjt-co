@@ -21,12 +21,12 @@ export default function SectionRenderer({ sections }: SectionRendererProps) {
       case 'services':
         return <Services key={index} section={section} />;
       case 'about':
-        return <About key={index} section={section} />;
+        return <About key={index} />;
       case 'cta':
-        return <CTA key={index} section={section} />;
+        return <CTA key={index} />;
       case 'footer':
-        return <Footer key={index} section={section} />;
-      case 'servicesGrid':
+        return <Footer key={index} />;
+      case 'services_grid':
         return <ServicesGrid key={index} section={section} />;
       case 'intro':
         return <Intro key={index} section={section} />;

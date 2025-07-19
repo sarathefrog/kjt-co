@@ -17,16 +17,10 @@
             }
           },
           {
-            "type": "clients_slider",
-            "title": "مشتریان ما",
-            "slider_type": "logos",
-            "clients": []
-          },
-          {
             "type": "about",
             "title": "درباره ما",
-            "content": "ما خدمات تخصصی در حوزه بازرسی، مشاوره و اجرای پروژه‌ها در صنایع مختلف ارائه می‌دهیم.",
-            "image": null
+            "content": "شرکت کاوش جوش تهران با بیش از ۳۰ سال تجربه در حوزه مهندسی، بازرسی و اجرای پروژه‌های صنعتی و ساختمانی، آماده ارائه خدمات تخصصی به شماست.",
+            "image": "/team.jpg"
           },
           {
             "type": "services",
@@ -42,12 +36,19 @@
             "type": "projects_slider",
             "title": "پروژه‌های ما",
             "slider_type": "projects",
-            "projects": []
+            "projects": [
+              { "title": "پروژه ساخت اسکلت فلزی کارخانه سیمان", "description": "ساخت و نصب اسکلت فلزی کارخانه سیمان تهران.", "image": "/projects/project1.webp" },
+              { "title": "بازرسی خطوط لوله نفت", "description": "بازرسی و کنترل کیفیت خطوط لوله انتقال نفت جنوب کشور.", "image": "/projects/project 2.webp" },
+              { "title": "مشاوره و اجرای پروژه نیروگاهی", "description": "مشاوره و اجرای پروژه نصب تجهیزات نیروگاهی در اصفهان.", "image": "/projects/project 3.jpg" }
+            ]
           },
           {
             "type": "testimonials",
             "title": "نظرات مشتریان",
-            "testimonials": []
+            "testimonials": [
+              { "name": "علی رضایی", "text": "تیم KJT بسیار حرفه‌ای و متعهد هستند. پروژه ما را با کیفیت عالی و در زمان مقرر تحویل دادند." },
+              { "name": "مریم احمدی", "text": "از خدمات مشاوره و بازرسی این شرکت بسیار راضی هستم. همکاری با آن‌ها تجربه خوبی بود." }
+            ]
           },
           {
             "type": "cta",
@@ -60,7 +61,12 @@
           {
             "type": "footer",
             "content": "© ۲۰۲۵ تمامی حقوق برای وب‌سایت پرتفولیو KJT محفوظ است.",
-            "links": []
+            "links": [
+              { "title": "خانه", "url": "/" },
+              { "title": "درباره ما", "url": "/about" },
+              { "title": "خدمات", "url": "/services/consulting" },
+              { "title": "تماس", "url": "/contact" }
+            ]
           }
         ]
       },

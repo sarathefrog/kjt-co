@@ -3,7 +3,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default function Footer() {
+type FooterProps = object;
+
+export default function Footer({}: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (

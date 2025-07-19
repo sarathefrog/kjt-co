@@ -28,7 +28,7 @@ export default function ProjectsSlider() {
   return (
     <section
       className="w-full py-16"
-      style={{ position: 'absolute', marginTop: '-250px', zIndex: 100 }}
+      style={{ position: 'absolute', marginTop: '-250px', zIndex: 10 }}
     >
       <h2 className="text-4xl font-bold text-right text-white mb-8 pr-60">پروژه‌ها</h2>
       <div className="w-full px-4 md:px-16">
