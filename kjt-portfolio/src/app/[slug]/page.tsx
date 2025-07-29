@@ -1,7 +1,6 @@
 'use client';
 import { getPageData, getAllPages } from '@/lib/data';
 import SectionRenderer from '@/components/SectionRenderer';
-import Header from '@/components/Header';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import SakhtVaEjraIntro from '@/components/sections/SakhtVaEjraIntro';
@@ -16,9 +15,11 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const pages = getAllPages();
-  return pages.map((page) => ({
-    slug: page.slug,
-  }));
+  return pages
+    .filter((page) => page.slug !== 'homepage')
+    .map((page) => ({
+      slug: page.slug,
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -225,8 +226,7 @@ export default async function DynamicPage({ params }: PageProps) {
   // Default rendering for other pages
   return (
     <main className="min-h-screen">
-      <Header />
       <SectionRenderer sections={pageData.sections} />
     </main>
   );
-} 
+}
